@@ -28,7 +28,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="text-7xl md:text-9xl font-display font-bold tracking-tighter leading-[0.9] mb-8 text-foreground"
+          className="text-6xl md:text-8xl font-display font-bold tracking-tighter leading-[0.9] mb-8 text-foreground"
         >
           LAWAL<br/>TANITOLUWA
         </motion.h1>
