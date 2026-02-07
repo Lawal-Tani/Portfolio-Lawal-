@@ -30,7 +30,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="text-7xl md:text-9xl font-display font-bold tracking-tighter leading-[0.9] mb-8 text-foreground"
         >
-          ALEX<br/>MORGAN
+          LAWAL<br/>TANITOLUWA
         </motion.h1>
 
         <motion.div 

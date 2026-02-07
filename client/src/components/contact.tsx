@@ -21,7 +21,7 @@ export default function Contact() {
             I'm currently available for freelance projects and open to full-time opportunities. If you have a project in mind, get in touch.
           </p>
           <Button size="lg" className="rounded-none text-lg px-8 py-6 bg-foreground text-background hover:bg-muted-foreground transition-colors">
-            hello@alexmorgan.design
+            hello@tanitoluwa.design
           </Button>
         </div>
 
@@ -37,13 +37,13 @@ export default function Contact() {
           </div>
           <div>
             <h4 className="font-bold text-foreground mb-2">Location</h4>
-            <p className="text-muted-foreground">San Francisco, CA<br/>Remote Friendly</p>
+            <p className="text-muted-foreground">Lagos, Nigeria<br/>Remote Friendly</p>
           </div>
         </div>
       </div>
       
       <div className="max-w-6xl mx-auto mt-24 pt-8 border-t border-border/20 flex flex-col md:flex-row justify-between items-center text-xs text-muted-foreground">
-        <p>&copy; 2026 Alex Morgan. All rights reserved.</p>
+        <p>&copy; 2026 Lawal Tanitoluwa. All rights reserved.</p>
         <p>Built with React & Tailwind.</p>
       </div>
     </section>
