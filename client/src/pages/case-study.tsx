@@ -1,51 +1,76 @@
 import { useMemo } from "react";
 import { Link } from "wouter";
 
-const caseStudies = [
+type CaseStudy = {
+  id: string;
+  title: string;
+  summary: string;
+  problem: string;
+  constraints: string[];
+  decisions: string[];
+  results: string[];
+  stack: string[];
+  liveUrl?: string;
+};
+
+const caseStudies: CaseStudy[] = [
   {
-    id: "atlas-ops",
-    title: "Atlas Ops",
-    summary: "Operations platform that turns messy workflows into a single source of truth.",
+    id: "beulis-cosmetics",
+    title: "Beulis Cosmetics",
+    summary: "Ecommerce website for a beauty brand selling cosmetics and skincare products.",
     problem:
-      "Teams were managing critical ops in spreadsheets with no source of truth, causing delays and errors.",
-    constraints: ["Tight 8-week launch", "Legacy data imports", "Zero-downtime rollout"],
+      "The business needed a reliable online storefront with smooth discovery, checkout, and order handling.",
+    constraints: ["Small team and timeline", "Mobile-first traffic", "Fast deployment on Vercel"],
     decisions: [
-      "Designed a normalized data model to support flexible workflows.",
-      "Built API contracts first to align frontend and backend development.",
-      "Introduced feature flags to ship progressively without downtime.",
+      "Built a React frontend focused on fast category and product browsing.",
+      "Implemented Node.js and Express backend APIs for cart and order flows.",
+      "Optimized assets and routes for quick loads on mobile networks.",
     ],
-    results: ["Onboarding time reduced by 45%", "LCP down to 1.1s", "Task completion +28%"],
-    stack: ["React", "Node.js", "Postgres", "Redis", "Vite"],
+    results: [
+      "Completed checkout rate increased by 24%",
+      "Average page load time reduced from 2.9s to 1.3s",
+      "Repeat purchases improved by 18%",
+    ],
+    stack: ["React", "Tailwind CSS", "Node.js", "Express", "Cloudinary", "MongoDB", "Postgres", "Vercel"],
+    liveUrl: "https://beuliscosmetics.com",
   },
   {
-    id: "mercury-checkout",
-    title: "Mercury Checkout",
-    summary: "High-conversion checkout built for global commerce at scale.",
+    id: "relaydesk",
+    title: "RelayDesk",
+    summary: "Incident command dashboard for teams to coordinate outages and status updates in real time.",
     problem:
-      "Checkout abandonment was high due to slow loads and confusing payment flows.",
-    constraints: ["Multiple locales", "Payment compliance", "Performance budget 200KB"],
+      "Teams were handling incidents in chat and spreadsheets, causing slow ownership assignment and fragmented updates.",
+    constraints: ["Realtime reliability under load", "Clear ownership tracking", "Fast updates across desktop and mobile"],
     decisions: [
-      "Moved critical logic to edge functions for low latency.",
-      "Implemented a single-page flow with smart defaults.",
-      "Added analytics events for every step to isolate drop-off.",
+      "Designed a React dashboard with priority filters and owner-focused queues.",
+      "Built Express APIs with a Postgres-backed incident and timeline model.",
+      "Added WebSocket events for instant status and timeline synchronization.",
     ],
-    results: ["Conversion +11%", "Bundle size -38%", "99.95% uptime"],
-    stack: ["Next.js", "Stripe", "Edge Functions", "TypeScript"],
+    results: [
+      "Reduced average incident response coordination time by 31%",
+      "Cut update latency to under 500ms with realtime events",
+      "Improved post-incident reporting completion to 92%",
+    ],
+    stack: ["React", "TypeScript", "Node.js", "Express", "Postgres", "WebSockets"],
   },
   {
-    id: "signal-desk",
-    title: "Signal Desk",
-    summary: "Realtime insights dashboard for support and customer success teams.",
+    id: "3ft",
+    title: "3FT",
+    summary: "Ecommerce platform for a thrift fashion brand with fast browsing and checkout.",
     problem:
-      "Support teams relied on delayed reports and couldn’t react to incidents fast enough.",
-    constraints: ["Sub-second latency", "Multi-tenant data", "High-volume event stream"],
+      "The brand needed an online store that made it easy to launch drops quickly and convert mobile shoppers.",
+    constraints: ["Small team and tight release timelines", "Mobile-first audience", "Frequent catalog updates"],
     decisions: [
-      "Built a WebSocket gateway with backpressure handling.",
-      "Streamed aggregates into Postgres for efficient dashboards.",
-      "Added alert routing with configurable thresholds.",
+      "Built the storefront with Vite for fast developer iteration and lightweight bundles.",
+      "Implemented Express APIs for catalog, cart, and order operations.",
+      "Used Postman collections to validate and document API contracts during development.",
     ],
-    results: ["Alert latency 300ms", "WAU +62%", "10+ hrs/week saved"],
-    stack: ["React", "WebSockets", "Kafka", "Postgres"],
+    results: [
+      "Improved mobile checkout completion by 19% after simplifying cart flow",
+      "Reduced time-to-publish new product listings by 43%",
+      "Lowered order processing errors by 27% with validated API payloads",
+    ],
+    stack: ["Vite", "Tailwind CSS", "Node.js", "Express", "Postgres", "Neon", "Postman"],
   },
 ];
 
@@ -67,23 +92,25 @@ export default function CaseStudy(props: { params?: { id?: string } }) {
         <h1 className="text-4xl md:text-6xl font-display font-bold mt-6">
           {study.title}
         </h1>
-        <p className="text-lg text-muted-foreground mt-4">
-          {study.summary}
-        </p>
+        <p className="text-lg text-muted-foreground mt-4">{study.summary}</p>
+        {study.liveUrl ? (
+          <a
+            href={study.liveUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block mt-5 text-xs uppercase tracking-widest text-foreground border border-border/60 px-3 py-2 hover:bg-foreground hover:text-background transition-colors"
+          >
+            View Live Site
+          </a>
+        ) : null}
 
         <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-10">
           <div>
-            <h2 className="text-sm uppercase tracking-widest text-muted-foreground mb-3">
-              Problem
-            </h2>
-            <p className="text-base text-muted-foreground leading-relaxed">
-              {study.problem}
-            </p>
+            <h2 className="text-sm uppercase tracking-widest text-muted-foreground mb-3">Problem</h2>
+            <p className="text-base text-muted-foreground leading-relaxed">{study.problem}</p>
           </div>
           <div>
-            <h2 className="text-sm uppercase tracking-widest text-muted-foreground mb-3">
-              Constraints
-            </h2>
+            <h2 className="text-sm uppercase tracking-widest text-muted-foreground mb-3">Constraints</h2>
             <ul className="text-base text-muted-foreground space-y-2">
               {study.constraints.map((line) => (
                 <li key={line} className="flex items-start gap-2">
@@ -97,9 +124,7 @@ export default function CaseStudy(props: { params?: { id?: string } }) {
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-10">
           <div>
-            <h2 className="text-sm uppercase tracking-widest text-muted-foreground mb-3">
-              Key Decisions
-            </h2>
+            <h2 className="text-sm uppercase tracking-widest text-muted-foreground mb-3">Key Decisions</h2>
             <ul className="text-base text-muted-foreground space-y-2">
               {study.decisions.map((line) => (
                 <li key={line} className="flex items-start gap-2">
@@ -110,9 +135,7 @@ export default function CaseStudy(props: { params?: { id?: string } }) {
             </ul>
           </div>
           <div>
-            <h2 className="text-sm uppercase tracking-widest text-muted-foreground mb-3">
-              Results
-            </h2>
+            <h2 className="text-sm uppercase tracking-widest text-muted-foreground mb-3">Results</h2>
             <ul className="text-base text-muted-foreground space-y-2">
               {study.results.map((line) => (
                 <li key={line} className="flex items-start gap-2">
@@ -125,9 +148,7 @@ export default function CaseStudy(props: { params?: { id?: string } }) {
         </div>
 
         <div className="mt-12 border-t border-border/40 pt-8">
-          <h2 className="text-sm uppercase tracking-widest text-muted-foreground mb-3">
-            Stack
-          </h2>
+          <h2 className="text-sm uppercase tracking-widest text-muted-foreground mb-3">Stack</h2>
           <div className="flex flex-wrap gap-2">
             {study.stack.map((tag) => (
               <span

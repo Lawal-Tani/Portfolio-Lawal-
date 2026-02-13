@@ -110,6 +110,11 @@
   scrollbar-width: none;
 }
 
+.section-visibility {
+  content-visibility: auto;
+  contain-intrinsic-size: 700px;
+}
+
 /* Custom cursor (disabled on touch/reduced-motion) */
 body.cursor-enabled {
   cursor: none;

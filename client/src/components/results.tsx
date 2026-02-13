@@ -23,7 +23,7 @@ const results = [
 
 export default function Results() {
   return (
-    <section className="border-t border-border/40 bg-card/40">
+    <section className="section-visibility border-t border-border/40 bg-card/40">
       <div className="max-w-6xl mx-auto px-6 md:px-12 py-14 md:py-18">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
           <div>

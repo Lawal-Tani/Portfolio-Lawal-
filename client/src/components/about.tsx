@@ -31,7 +31,7 @@ export default function About() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative py-24 md:py-32 px-6 md:px-12 border-t border-border/40 overflow-hidden"
+      className="section-visibility relative py-24 md:py-32 px-6 md:px-12 border-t border-border/40 overflow-hidden"
     >
       <motion.div
         style={{ x: glowX, opacity: glowOpacity }}

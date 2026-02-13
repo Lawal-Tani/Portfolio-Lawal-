@@ -28,7 +28,7 @@ export default function Contact() {
     <section
       ref={sectionRef}
       id="contact"
-      className="relative py-24 md:py-32 px-6 md:px-12 border-t border-border/40 bg-card overflow-hidden"
+      className="section-visibility relative py-24 md:py-32 px-6 md:px-12 border-t border-border/40 bg-card overflow-hidden"
     >
       <motion.div
         style={{ x: glowX, opacity: glowOpacity }}
@@ -65,7 +65,7 @@ export default function Contact() {
               size="lg"
               className="rounded-none text-lg px-8 py-6 border-foreground hover:bg-foreground hover:text-background transition-colors"
             >
-              <a href="/resume.txt" download>
+              <a href="/resume.txt" target="_blank" rel="noreferrer">
                 Resume
               </a>
             </Button>

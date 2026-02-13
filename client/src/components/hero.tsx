@@ -26,8 +26,8 @@ export default function Hero() {
   });
 
   const smooth = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 25,
+    stiffness: isMobile ? 90 : 120,
+    damping: isMobile ? 30 : 25,
     mass: 0.4,
   });
 
@@ -40,11 +40,11 @@ export default function Hero() {
   const bgScale = useTransform(smooth, [0, 1], [1.08, 1.45]);
   const bgRotate = useTransform(smooth, [0, 1], [-6, 14]);
   const bgOpacity = useTransform(smooth, [0, 1], [0.1, 0.4]);
-  const bgBlur = useTransform(smooth, [0, 0.5, 1], [
-    "blur(0px)",
-    "blur(4px)",
-    "blur(10px)",
-  ]);
+  const bgBlur = useTransform(
+    smooth,
+    [0, 0.5, 1],
+    isMobile ? ["blur(0px)", "blur(0px)", "blur(0px)"] : ["blur(0px)", "blur(4px)", "blur(10px)"],
+  );
   const glowX = useTransform(smooth, [0, 1], ["-10%", "40%"]);
   const glowOpacity = useTransform(smooth, [0, 0.7, 1], [0.15, 0.5, 0.3]);
   const hintOpacity = useTransform(smooth, [0, 0.4, 1], [1, 0.6, 0.15]);
@@ -67,6 +67,10 @@ export default function Hero() {
         <img
           src="/images/hero-abstract.png"
           alt="Abstract"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          sizes="100vw"
           className="w-full h-full object-cover grayscale contrast-125"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />

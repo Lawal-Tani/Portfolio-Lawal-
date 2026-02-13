@@ -18,45 +18,45 @@ type Project = {
 const projects: Project[] = [
   {
     id: 1,
-    title: "Atlas Ops",
-    oneLiner: "Operations platform that turns messy workflows into a single source of truth.",
-    role: "Fullstack Engineer - Ownership: API, data model, and UI system",
+    title: "Beulis Cosmetics",
+    oneLiner: "Ecommerce platform for cosmetics and skincare with a complete shopping flow.",
+    role: "Fullstack Engineer - Built frontend and backend end-to-end",
     impact: [
-      "Cut onboarding time by 45% with guided flows",
-      "Reduced page load from 3.4s to 1.1s",
-      "Improved task completion rate by 28%",
+      "Increased completed checkouts by 24% after streamlining checkout",
+      "Reduced average page load time from 2.9s to 1.3s",
+      "Raised repeat purchase rate by 18% with account and reorder flow",
     ],
-    stack: ["React", "Node.js", "Postgres", "Redis", "Vite"],
-    image: "/images/project-1.png",
-    link: "/case-study/atlas-ops",
+    stack: ["React", "Tailwind CSS", "Node.js", "Express", "Cloudinary", "MongoDB", "Postgres", "Vercel"],
+    image: "/images/Beulis.png",
+    link: "/case-study/beulis-cosmetics",
   },
   {
     id: 2,
-    title: "Mercury Checkout",
-    oneLiner: "High-conversion checkout built for global commerce at scale.",
-    role: "Fullstack Engineer - Ownership: payments, analytics, performance",
+    title: "RelayDesk",
+    oneLiner: "Incident command dashboard for tracking outages, owners, and response timelines.",
+    role: "Fullstack Engineer - Built realtime incident workflows end-to-end",
     impact: [
-      "Lifted conversion by 11% across 6 markets",
-      "Dropped bundle size by 38%",
-      "99.95% uptime during peak traffic",
+      "Reduced average incident response coordination time by 31%",
+      "Cut update latency to under 500ms with realtime events",
+      "Improved post-incident reporting completion to 92%",
     ],
-    stack: ["Next.js", "Stripe", "Edge Functions", "TypeScript"],
+    stack: ["React", "TypeScript", "Node.js", "Express", "Postgres", "WebSockets"],
     image: "/images/project-2.png",
-    link: "/case-study/mercury-checkout",
+    link: "/case-study/relaydesk",
   },
   {
     id: 3,
-    title: "Signal Desk",
-    oneLiner: "Realtime insights dashboard for support and customer success teams.",
-    role: "Fullstack Engineer - Ownership: realtime pipeline, dashboards",
+    title: "3FT",
+    oneLiner: "Ecommerce site for a thrift fashion brand with product discovery and checkout flows.",
+    role: "Fullstack Developer - Built frontend and backend end-to-end",
     impact: [
-      "Alert latency down to 300ms",
-      "Weekly active users +62%",
-      "Saved 10+ hrs/week in manual reporting",
+      "Improved mobile checkout completion by 19% after simplifying cart flow",
+      "Reduced time-to-publish new product listings by 43%",
+      "Lowered order processing errors by 27% with validated API payloads",
     ],
-    stack: ["React", "WebSockets", "Kafka", "Postgres"],
-    image: "/images/project-3.png",
-    link: "/case-study/signal-desk",
+    stack: ["Vite", "Tailwind CSS", "Node.js", "Express", "Postgres", "Neon", "Postman"],
+    image: "/images/3FT.png",
+    link: "/case-study/3ft",
   },
 ];
 
@@ -74,8 +74,8 @@ function ProjectCard({
   const cardRotate = useTransform(scrollYProgress, [0, 1], [-4 + index, 4 - index]);
   const cardScale = useTransform(scrollYProgress, [0, 1], [0.94, 1.08]);
   const cardOpacity = useTransform(scrollYProgress, [0, 0.35 + offset, 1], [0.05, 1, 0.75]);
-  const imgY = useTransform(scrollYProgress, [0, 1], [30, -30]);
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1.1, 1.25]);
+  const imgY = useTransform(scrollYProgress, [0, 1], [10, -10]);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1.0, 1.05]);
   const highlightX = useTransform(scrollYProgress, [0, 1], ["-20%", "60%"]);
 
   return (
@@ -84,12 +84,15 @@ function ProjectCard({
       className="will-change-transform"
     >
       <Card className="group bg-transparent border-none shadow-none overflow-hidden rounded-none">
-        <CardContent className="p-0 relative aspect-video overflow-hidden bg-secondary mb-6">
+        <CardContent className="p-0 relative aspect-video overflow-hidden bg-black/40 mb-6">
           <motion.img
             src={project.image}
             alt={project.title}
+            loading="lazy"
+            decoding="async"
+            sizes="(max-width: 768px) 85vw, 33vw"
             style={{ y: imgY, scale: imgScale }}
-            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out will-change-transform"
+            className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-700 ease-out will-change-transform"
           />
           <motion.div
             style={{ x: highlightX }}
@@ -163,7 +166,7 @@ export default function Projects() {
     <section
       ref={sectionRef}
       id="projects"
-      className="relative py-24 md:py-32 px-6 md:px-12 border-t border-border/40 overflow-hidden"
+      className="section-visibility relative py-24 md:py-32 px-6 md:px-12 border-t border-border/40 overflow-hidden"
     >
       <motion.div
         style={{ y: glowY, opacity: glowOpacity }}
