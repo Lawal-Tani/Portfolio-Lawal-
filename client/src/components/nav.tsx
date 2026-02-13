@@ -17,7 +17,7 @@ export default function Nav() {
     >
       <Link href="/">
         <a className="text-xl font-display font-bold tracking-tighter hover:opacity-70 transition-opacity">
-          AM.
+          LT.
         </a>
       </Link>
 

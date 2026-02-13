@@ -1,0 +1,28 @@
+Lawal Tanitoluwa
+Fullstack Engineer
+
+Email: tanilawal44@gmail.com
+GitHub: https://github.com/Lawal-Tani
+Location: Lagos, Nigeria (Remote Friendly)
+
+Summary
+- Fullstack engineer focused on product impact, performance, and reliable systems.
+- Builds end-to-end solutions across UI, APIs, and data layers.
+
+Core Skills
+- Frontend: React, TypeScript, Tailwind CSS
+- Backend: Node.js, REST APIs
+- Data: Postgres, Redis
+- Platform: CI/CD, observability
+
+Experience Highlights
+- Shipped high-conversion commerce flows at scale.
+- Built realtime dashboards with sub-second updates.
+- Improved onboarding and activation with guided flows.
+
+Projects
+- Atlas Ops: workflow platform for ops teams
+- Mercury Checkout: global checkout system
+- Signal Desk: realtime insights dashboard
+
+Replace this placeholder with your real resume PDF when ready.
