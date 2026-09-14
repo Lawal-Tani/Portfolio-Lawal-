@@ -5,7 +5,7 @@ export default function Experience() {
     {
       role: "Software Engineer",
       company: "Pedagon Africa",
-      period: "2024 – 2025",
+      period: "2022 – Present",
       location: "Lagos, Nigeria",
       type: "Software Engineering",
       summary: "Collaborated on full-stack web platforms, client-side applications, and API integrations.",
@@ -20,7 +20,7 @@ export default function Experience() {
     {
       role: "Automation & Systems Engineering Intern",
       company: "GIL Automations",
-      period: "2023 – 2024",
+      period: "2025 – 2026",
       location: "Lagos, Nigeria",
       type: "Industrial Automation & Control",
       summary: "Hands-on engineering work across industrial instrumentation, PLC configurations, technical documentation, and system troubleshooting.",

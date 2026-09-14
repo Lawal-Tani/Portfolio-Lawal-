@@ -56,12 +56,12 @@ SELECTED ENGINEERING PROJECTS
 ===================================================================
 ENGINEERING WORK EXPERIENCE
 ===================================================================
-Software Engineer | Pedagon Africa (2024 – 2025)
+Software Engineer | Pedagon Africa (2022 – Present)
 - Collaborated on responsive frontend interfaces using React, TypeScript, and modern styling.
 - Contributed to Node.js and REST API endpoints for user onboarding and workflows.
 - Participated in code reviews, bug fixes, and continuous product delivery sprints.
 
-Automation & Systems Engineering Intern | GIL Automations (2023 – 2024)
+Automation & Systems Engineering Intern | GIL Automations (2025 – 2026)
 - Assisted senior engineers in calibrating industrial instrumentation, sensors, and control loops.
 - Diagnosed PLC (Programmable Logic Controller) configurations and integration test benches.
 - Authored equipment test reports and technical documentation for industrial clients.
