@@ -1,28 +1,73 @@
-Lawal Tanitoluwa
-Fullstack Engineer
-
+LAWAL TANITOLUWA
+Software Engineer · Full-Stack & Systems
 Email: tanilawal44@gmail.com
 GitHub: https://github.com/Lawal-Tani
+LinkedIn: https://www.linkedin.com/in/tanitoluwa-lawal
 Location: Lagos, Nigeria (Remote Friendly)
 
-Summary
-- Fullstack engineer focused on product impact, performance, and reliable systems.
-- Builds end-to-end solutions across UI, APIs, and data layers.
+===================================================================
+PROFESSIONAL SUMMARY
+===================================================================
+Software Engineer with an engineering foundation in Robotics & Automation.
+Builds full-stack web and mobile applications, AI-powered systems, and
+distributed webhook gateways. Grounded in system design, failure handling,
+defensive programming, and technical trade-offs.
 
-Core Skills
-- Frontend: React, TypeScript, Tailwind CSS
-- Backend: Node.js, REST APIs
-- Data: Postgres, Redis
-- Platform: CI/CD, observability
+===================================================================
+CORE TECHNICAL SKILLS
+===================================================================
+- Languages: TypeScript, JavaScript, Python, MATLAB, SQL, HTML5/CSS3
+- Frontend & Mobile: React, Next.js (App Router), React Native, Expo (SDK 54),
+  Tailwind CSS, NativeWind v4
+- Backend & Systems: Node.js, Express, Supabase, PostgreSQL, Row-Level Security,
+  REST APIs, WebSockets (ws)
+- AI & Systems: LLM API integration, multi-provider fallbacks (DeepSeek, Groq),
+  RAG pipelines over verified corpora
+- Tools: Git, GitHub, Vercel, Expo EAS, Postman, Linux
 
-Experience Highlights
-- Shipped high-conversion commerce flows at scale.
-- Built realtime dashboards with sub-second updates.
-- Improved onboarding and activation with guided flows.
+===================================================================
+SELECTED ENGINEERING PROJECTS
+===================================================================
+1. KNOVA — AI-Powered CBT & Learning Platform (WAEC / JAMB)
+   Stack: React Native, Expo 54, Supabase, PostgreSQL, Zustand, Vitest, Groq/DeepSeek
+   - Engineered cross-platform CBT exam engine with auto-save, timer decrement,
+     and question palette state management.
+   - Architected edge-level RAG tutor router cascading between DeepSeek and
+     Groq/Llama with automated failover upon provider rate limits.
+   - Built with 90 automated unit and integration tests and offline local store demo mode.
 
-Projects
-- Atlas Ops: workflow platform for ops teams
-- Mercury Checkout: global checkout system
-- Signal Desk: realtime insights dashboard
+2. HOOKPILOT — Webhook Ingestion & Delivery Gateway
+   Stack: Next.js 14, Supabase (PostgreSQL), TypeScript, Vercel Cron
+   - Developed fast ingestion endpoint (<50ms ACK) buffering raw incoming webhooks.
+   - Implemented scheduled delivery worker with 7-stage exponential backoff
+     schedule (10s to 24h) and dead-letter queueing.
+   - Built hop-by-hop header sanitizer to prevent proxy forwarding rejections.
 
-Replace this placeholder with your real resume PDF when ready.
+3. STYLECART — Multi-Role Campus Commerce Platform
+   Stack: React Native, Expo, Supabase, PostgreSQL, RLS
+   - Built unified mobile app supporting student buyers, merchant vendors, and super-admins.
+   - Implemented double-entry financial ledger for withdrawal and deposit requests.
+
+4. RELAYDESK — Real-Time Incident Command Dashboard
+   Stack: React, TypeScript, Node.js, Express, PostgreSQL, WebSockets
+   - Built monorepo with Express backend and WebSocket event hub broadcasting sub-300ms updates.
+   - Modeled incident lifecycle (Investigating -> Identified -> Monitoring -> Resolved) and postmortems.
+
+===================================================================
+ENGINEERING WORK EXPERIENCE
+===================================================================
+Software Engineer | Pedagon Africa (2024 – 2025)
+- Collaborated on responsive frontend interfaces using React, TypeScript, and modern styling.
+- Contributed to Node.js and REST API endpoints for user onboarding and workflows.
+- Participated in code reviews, bug fixes, and continuous product delivery sprints.
+
+Automation & Systems Engineering Intern | GIL Automations (2023 – 2024)
+- Assisted senior engineers in calibrating industrial instrumentation, sensors, and control loops.
+- Diagnosed PLC (Programmable Logic Controller) configurations and integration test benches.
+- Authored equipment test reports and technical documentation for industrial clients.
+
+===================================================================
+EDUCATION & FOUNDATION
+===================================================================
+B.Eng / B.Sc in Engineering (Robotics & Automation / Computer Science)
+Focus: Systems engineering, control theory, algorithms, time-series telemetry analysis.

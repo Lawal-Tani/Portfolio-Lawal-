@@ -6,13 +6,15 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/home";
 import NotFound from "@/pages/not-found";
 import CaseStudy from "@/pages/case-study";
-import Cursor from "@/components/cursor";
+import EngineeringPage from "@/pages/engineering";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/case-study/:id" component={CaseStudy} />
+      <Route path="/engineering" component={EngineeringPage} />
+      <Route path="/engineering/:slug" component={EngineeringPage} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -22,7 +24,6 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Cursor />
         <Toaster />
         <Router />
       </TooltipProvider>

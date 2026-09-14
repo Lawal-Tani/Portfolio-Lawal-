@@ -1,114 +1,239 @@
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { ArrowUpRight, Check, Copy, Download, ExternalLink, FileText, Github, Linkedin, Mail, MapPin } from "lucide-react";
 
 export default function Contact() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
+  const [copied, setCopied] = useState(false);
+  const [resumeOpen, setResumeOpen] = useState(false);
+  const email = "tanilawal44@gmail.com";
 
-  const smooth = useSpring(scrollYProgress, { stiffness: 110, damping: 26, mass: 0.6 });
-  const headingY = useTransform(smooth, [0, 1], [90, -90]);
-  const headingOpacity = useTransform(smooth, [0, 0.35, 1], [0.1, 1, 0.6]);
-  const headingBlur = useTransform(smooth, [0, 0.4, 1], [
-    "blur(10px)",
-    "blur(0px)",
-    "blur(6px)",
-  ]);
-  const copyY = useTransform(smooth, [0, 1], [60, -60]);
-  const buttonY = useTransform(smooth, [0, 1], [40, -40]);
-  const socialsY = useTransform(smooth, [0, 1], [110, -110]);
-  const footerOpacity = useTransform(smooth, [0, 0.6, 1], [0.1, 1, 0.7]);
-  const glowX = useTransform(smooth, [0, 1], ["-30%", "35%"]);
-  const glowOpacity = useTransform(smooth, [0, 0.6, 1], [0.1, 0.45, 0.2]);
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
-    <section
-      ref={sectionRef}
-      id="contact"
-      className="section-visibility relative py-24 md:py-32 px-6 md:px-12 border-t border-border/40 bg-card overflow-hidden"
-    >
-      <motion.div
-        style={{ x: glowX, opacity: glowOpacity }}
-        className="absolute -top-12 left-0 right-0 h-[420px] bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.2),_transparent_65%)] -z-10 pointer-events-none"
-      />
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
-        <div className="max-w-2xl">
-          <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4">
-            03 - Contact
-          </h2>
-          <motion.h3
-            style={{
-              y: headingY,
-              opacity: headingOpacity,
-              filter: headingBlur,
-            }}
-            className="text-5xl md:text-7xl font-display font-bold tracking-tight mb-8 will-change-transform"
-          >
-            Let&apos;s work<br />together.
-          </motion.h3>
-          <motion.p
-            style={{ y: copyY, opacity: headingOpacity }}
-            className="text-xl text-muted-foreground mb-8 max-w-lg will-change-transform"
-          >
-            I&apos;m currently available for freelance projects and open to full-time opportunities. If you have a project in mind, get in touch.
-          </motion.p>
-          <motion.div style={{ y: buttonY, opacity: headingOpacity }} className="flex flex-wrap gap-3 will-change-transform">
-            <Button size="lg" className="rounded-none text-lg px-8 py-6 bg-foreground text-background hover:bg-muted-foreground transition-colors">
-              tanilawal44@gmail.com
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="rounded-none text-lg px-8 py-6 border-foreground hover:bg-foreground hover:text-background transition-colors"
-            >
-              <a href="/resume.txt" target="_blank" rel="noreferrer">
-                Resume
+    <footer id="contact" className="py-24 px-6 md:px-12 border-t border-border/60 bg-card/40">
+      <div className="max-w-6xl mx-auto">
+        {/* Contact & Availability Header */}
+        <div id="resume" className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-border/40">
+          <div className="lg:col-span-7">
+            <span className="font-mono text-xs uppercase tracking-widest text-emerald-400 block mb-3">
+              // STATUS: OPEN TO SOFTWARE ENGINEERING ROLES
+            </span>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-foreground tracking-tight mb-6">
+              Let's talk engineering.
+            </h2>
+            <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-xl mb-8">
+              I am actively interviewing for full-stack software engineering, systems, and AI product roles. Whether you are an engineering manager, technical founder, or recruiter—reach out directly.
+            </p>
+
+            {/* Email Contact Box */}
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href={`mailto:${email}`}
+                className="inline-flex items-center gap-2 bg-foreground text-background font-mono text-xs uppercase tracking-widest px-6 py-4 font-bold hover:bg-neutral-200 transition-colors"
+              >
+                <Mail className="w-4 h-4" /> {email}
               </a>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="rounded-none text-lg px-8 py-6 border-foreground hover:bg-foreground hover:text-background transition-colors"
-            >
-              <a href="https://github.com/Lawal-Tani" target="_blank" rel="noreferrer">
-                GitHub
-              </a>
-            </Button>
-          </motion.div>
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                className="inline-flex items-center gap-2 border border-border text-foreground font-mono text-xs uppercase tracking-widest px-4 py-4 hover:border-foreground transition-colors"
+                title="Copy email to clipboard"
+              >
+                {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                {copied ? "Copied" : "Copy"}
+              </button>
+            </div>
+          </div>
+
+          {/* Right Column: Resume & Quick Links */}
+          <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
+            <div className="border border-border/80 bg-background/60 p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <FileText className="w-4 h-4 text-emerald-400" />
+                <h3 className="font-display font-bold text-foreground text-lg">
+                  Engineering Resume
+                </h3>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-4">
+                Detailed record of software engineering projects, industrial automation internship experience, education, and technical stack.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={() => setResumeOpen(true)}
+                  className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider bg-foreground text-background font-bold px-3.5 py-2 hover:bg-neutral-200 transition-colors"
+                >
+                  View Resume <ExternalLink className="w-3.5 h-3.5" />
+                </button>
+                <a
+                  href="/resume.txt"
+                  download="Lawal_Tanitoluwa_Software_Engineer_Resume.txt"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider border border-border px-3.5 py-2 hover:border-foreground transition-colors text-foreground"
+                >
+                  Download (.txt) <Download className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+
+            <div className="space-y-2 text-xs font-mono text-muted-foreground">
+              <div className="flex items-center justify-between py-2 border-b border-border/30">
+                <span className="flex items-center gap-2">
+                  <MapPin className="w-3.5 h-3.5" /> Location
+                </span>
+                <span className="text-foreground">Lagos, Nigeria (Remote)</span>
+              </div>
+              <div className="flex items-center justify-between py-2 border-b border-border/30">
+                <span className="flex items-center gap-2">
+                  <Github className="w-3.5 h-3.5" /> GitHub
+                </span>
+                <a
+                  href="https://github.com/Lawal-Tani"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-foreground hover:underline flex items-center gap-1"
+                >
+                  github.com/Lawal-Tani <ArrowUpRight className="w-3 h-3" />
+                </a>
+              </div>
+              <div className="flex items-center justify-between py-2">
+                <span className="flex items-center gap-2">
+                  <Linkedin className="w-3.5 h-3.5" /> LinkedIn
+                </span>
+                <a
+                  href="https://www.linkedin.com/in/tanitoluwa-lawal"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-foreground hover:underline flex items-center gap-1"
+                >
+                  tanitoluwa-lawal <ArrowUpRight className="w-3 h-3" />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <motion.div
-          style={{ y: socialsY, opacity: headingOpacity }}
-          className="space-y-8 md:text-right self-end md:self-start mt-8 md:mt-24 will-change-transform"
-        >
-          <div>
-            <h4 className="font-bold text-foreground mb-2">Socials</h4>
-            <ul className="space-y-2 text-muted-foreground">
-              <li><a href="#" className="hover:text-foreground transition-colors">Twitter / X</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">LinkedIn</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">GitHub</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">Instagram</a></li>
-            </ul>
+        {/* Footer Meta */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-muted-foreground">
+          <p>© {new Date().getFullYear()} Tanitoluwa Lawal. All engineering verified.</p>
+          <div className="flex items-center gap-4">
+            <span>Built with React 19 &amp; Vite</span>
+            <span>·</span>
+            <span>Zero Fabrication</span>
           </div>
-          <div>
-            <h4 className="font-bold text-foreground mb-2">Location</h4>
-            <p className="text-muted-foreground">Lagos, Nigeria<br/>Remote Friendly</p>
-          </div>
-        </motion.div>
+        </div>
       </div>
 
-      <motion.div
-        style={{ opacity: footerOpacity }}
-        className="max-w-6xl mx-auto mt-24 pt-8 border-t border-border/20 flex flex-col md:flex-row justify-between items-center text-xs text-muted-foreground"
-      >
-        <p>&copy; 2026 Lawal Tanitoluwa. All rights reserved.</p>
-        <p>Built with React & Tailwind.</p>
-      </motion.div>
-    </section>
+      {/* Resume Modal */}
+      {resumeOpen && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-background border border-border w-full max-w-3xl max-h-[85vh] flex flex-col shadow-2xl">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-card/60">
+              <div className="flex items-center gap-2">
+                <FileText className="w-4 h-4 text-emerald-400" />
+                <span className="font-mono text-xs uppercase tracking-widest font-bold">
+                  Lawal_Tanitoluwa_Resume.txt
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <a
+                  href="/resume.txt"
+                  download="Lawal_Tanitoluwa_Software_Engineer_Resume.txt"
+                  className="text-xs font-mono uppercase tracking-wider text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
+                >
+                  <Download className="w-3.5 h-3.5" /> Download
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setResumeOpen(false)}
+                  className="text-muted-foreground hover:text-foreground font-mono text-sm px-2 py-1 border border-border/60 hover:bg-card"
+                >
+                  ✕ Close
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6 overflow-y-auto font-mono text-xs text-foreground/90 space-y-4 whitespace-pre-wrap leading-relaxed">
+              {`LAWAL TANITOLUWA
+Software Engineer · Full-Stack & Systems
+Email: tanilawal44@gmail.com
+GitHub: https://github.com/Lawal-Tani
+LinkedIn: https://www.linkedin.com/in/tanitoluwa-lawal
+Location: Lagos, Nigeria (Remote Friendly)
+
+===================================================================
+PROFESSIONAL SUMMARY
+===================================================================
+Software Engineer with an engineering foundation in Robotics & Automation.
+Builds full-stack web and mobile applications, AI-powered systems, and
+distributed webhook gateways. Grounded in system design, failure handling,
+defensive programming, and technical trade-offs.
+
+===================================================================
+CORE TECHNICAL SKILLS
+===================================================================
+- Languages: TypeScript, JavaScript, Python, MATLAB, SQL, HTML5/CSS3
+- Frontend & Mobile: React, Next.js (App Router), React Native, Expo (SDK 54),
+  Tailwind CSS, NativeWind v4
+- Backend & Systems: Node.js, Express, Supabase, PostgreSQL, Row-Level Security,
+  REST APIs, WebSockets (ws)
+- AI & Systems: LLM API integration, multi-provider fallbacks (DeepSeek, Groq),
+  RAG pipelines over verified corpora
+- Tools: Git, GitHub, Vercel, Expo EAS, Postman, Linux
+
+===================================================================
+SELECTED ENGINEERING PROJECTS
+===================================================================
+1. KNOVA — AI-Powered CBT & Learning Platform (WAEC / JAMB)
+   Stack: React Native, Expo 54, Supabase, PostgreSQL, Zustand, Vitest, Groq/DeepSeek
+   - Engineered cross-platform CBT exam engine with auto-save, timer decrement,
+     and question palette state management.
+   - Architected edge-level RAG tutor router cascading between DeepSeek and
+     Groq/Llama with automated failover upon provider rate limits.
+   - Built with 90 automated unit and integration tests and offline local store demo mode.
+
+2. HOOKPILOT — Webhook Ingestion & Delivery Gateway
+   Stack: Next.js 14, Supabase (PostgreSQL), TypeScript, Vercel Cron
+   - Developed fast ingestion endpoint (<50ms ACK) buffering raw incoming webhooks.
+   - Implemented scheduled delivery worker with 7-stage exponential backoff
+     schedule (10s to 24h) and dead-letter queueing.
+   - Built hop-by-hop header sanitizer to prevent proxy forwarding rejections.
+
+3. STYLECART — Multi-Role Campus Commerce Platform
+   Stack: React Native, Expo, Supabase, PostgreSQL, RLS
+   - Built unified mobile app supporting student buyers, merchant vendors, and super-admins.
+   - Implemented double-entry financial ledger for withdrawal and deposit requests.
+
+4. RELAYDESK — Real-Time Incident Command Dashboard
+   Stack: React, TypeScript, Node.js, Express, PostgreSQL, WebSockets
+   - Built monorepo with Express backend and WebSocket event hub broadcasting sub-300ms updates.
+   - Modeled incident lifecycle (Investigating -> Identified -> Monitoring -> Resolved) and postmortems.
+
+===================================================================
+ENGINEERING WORK EXPERIENCE
+===================================================================
+Software Engineer | Pedagon Africa (2024 – 2025)
+- Collaborated on responsive frontend interfaces using React, TypeScript, and modern styling.
+- Contributed to Node.js and REST API endpoints for user onboarding and workflows.
+- Participated in code reviews, bug fixes, and continuous product delivery sprints.
+
+Automation & Systems Engineering Intern | GIL Automations (2023 – 2024)
+- Assisted senior engineers in calibrating industrial instrumentation, sensors, and control loops.
+- Diagnosed PLC (Programmable Logic Controller) configurations and integration test benches.
+- Authored equipment test reports and technical documentation for industrial clients.
+
+===================================================================
+EDUCATION & FOUNDATION
+===================================================================
+B.Eng / B.Sc in Engineering (Robotics & Automation / Computer Science)
+Focus: Systems engineering, control theory, algorithms, time-series telemetry analysis.
+`}
+            </div>
+          </div>
+        </div>
+      )}
+    </footer>
   );
 }

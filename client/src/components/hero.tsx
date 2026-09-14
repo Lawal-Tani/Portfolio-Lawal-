@@ -1,146 +1,140 @@
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
-
-const mobileSlides = [
-  {
-    title: "Fullstack Engineer",
-    body: "I build end-to-end systems: polished UI, reliable APIs, and data that scales.",
-  },
-  {
-    title: "Performance Focused",
-    body: "Obsessed with speed, stability, and measurable product impact.",
-  },
-  {
-    title: "Product Minded",
-    body: "I connect user needs to technical decisions with tight feedback loops.",
-  },
-];
+import { ArrowDown, FileText, ArrowUpRight, Terminal } from "lucide-react";
+import { Link } from "wouter";
 
 export default function Hero() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const isMobile = useIsMobile();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  const smooth = useSpring(scrollYProgress, {
-    stiffness: isMobile ? 90 : 120,
-    damping: isMobile ? 30 : 25,
-    mass: 0.4,
-  });
-
-  const kickerY = useTransform(smooth, [0, 1], [50, -50]);
-  const titleY = useTransform(smooth, [0, 1], [140, -140]);
-  const titleScale = useTransform(smooth, [0, 1], [1.06, 0.98]);
-  const copyY = useTransform(smooth, [0, 1], [70, -70]);
-  const copyOpacity = useTransform(smooth, [0, 0.6, 1], [0.1, 1, 0.5]);
-
-  const bgScale = useTransform(smooth, [0, 1], [1.08, 1.45]);
-  const bgRotate = useTransform(smooth, [0, 1], [-6, 14]);
-  const bgOpacity = useTransform(smooth, [0, 1], [0.1, 0.4]);
-  const bgBlur = useTransform(
-    smooth,
-    [0, 0.5, 1],
-    isMobile ? ["blur(0px)", "blur(0px)", "blur(0px)"] : ["blur(0px)", "blur(4px)", "blur(10px)"],
-  );
-  const glowX = useTransform(smooth, [0, 1], ["-10%", "40%"]);
-  const glowOpacity = useTransform(smooth, [0, 0.7, 1], [0.15, 0.5, 0.3]);
-  const hintOpacity = useTransform(smooth, [0, 0.4, 1], [1, 0.6, 0.15]);
-  const hintY = useTransform(smooth, [0, 1], [0, -36]);
-
   return (
-    <section
-      ref={sectionRef}
-      className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 overflow-hidden pt-20"
-    >
-      <motion.div
+    <section className="relative min-h-[92vh] flex flex-col justify-center px-6 md:px-12 pt-28 pb-16 overflow-hidden">
+      {/* Subtle background grid accent */}
+      <div 
+        className="absolute inset-0 -z-10 opacity-[0.03] pointer-events-none"
         style={{
-          scale: bgScale,
-          rotate: bgRotate,
-          opacity: bgOpacity,
-          filter: bgBlur,
+          backgroundImage: `linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)`,
+          backgroundSize: "48px 48px",
         }}
-        className="absolute top-0 right-0 w-[900px] h-[900px] -z-10 pointer-events-none mix-blend-screen will-change-transform"
-      >
-        <img
-          src="/images/hero-abstract.png"
-          alt="Abstract"
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
-          sizes="100vw"
-          className="w-full h-full object-cover grayscale contrast-125"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent" />
-      </motion.div>
-      <motion.div
-        style={{ x: glowX, opacity: glowOpacity }}
-        className="absolute -top-20 left-0 right-0 h-[420px] bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.2),_transparent_60%)] -z-10 pointer-events-none"
       />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(circle_at_top_right,_rgba(255,255,255,0.06),_transparent_70%)] -z-10 pointer-events-none" />
 
-      <div className="max-w-5xl z-10">
-        <motion.p
-          style={{ y: kickerY }}
-          className="text-muted-foreground font-medium mb-6 tracking-widest uppercase text-sm will-change-transform"
-        >
-          Fullstack Engineer
-        </motion.p>
+      <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        {/* Left Column: Core Positioning Copy */}
+        <div className="lg:col-span-7 flex flex-col items-start">
+          <div className="inline-flex items-center gap-2 border border-border/80 bg-card/60 px-3 py-1 mb-6 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            Software Engineer · Systems & Full-Stack
+          </div>
 
-        <motion.h1
-          style={{ y: titleY, scale: titleScale }}
-          className="text-6xl md:text-8xl font-display font-bold tracking-tighter leading-[0.9] mb-8 text-foreground will-change-transform"
-        >
-          LAWAL<br />TANITOLUWA
-        </motion.h1>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold tracking-tight text-foreground leading-[1.08] mb-6">
+            I build software systems that{" "}
+            <span className="text-foreground underline decoration-muted-foreground/40 underline-offset-8">
+              solve real problems.
+            </span>
+          </h1>
 
-        <motion.div
-          style={{ y: copyY, opacity: copyOpacity }}
-          className="max-w-xl will-change-transform"
-        >
-          <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
-            I build <span className="text-foreground font-medium">fullstack products</span> with crisp UX, reliable APIs, and performance-first systems that scale from MVP to production.
+          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mb-8">
+            I'm <strong className="text-foreground font-semibold">Tanitoluwa Lawal</strong>, a software engineer with a background in Robotics &amp; Automation. I build full-stack applications, AI-powered products, and software systems—from idea to deployment.
           </p>
-        </motion.div>
-        <div className="mt-8 flex flex-wrap gap-3 text-xs uppercase tracking-widest text-muted-foreground">
-          <span className="border border-border px-3 py-2">Product Thinking</span>
-          <span className="border border-border px-3 py-2">System Design</span>
-          <span className="border border-border px-3 py-2">Performance</span>
-          <span className="border border-border px-3 py-2">Reliability</span>
-        </div>
-      </div>
 
-      {isMobile ? (
-        <div className="mt-10 -mx-6 px-6">
-          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar">
-            {mobileSlides.map((slide) => (
-              <div
-                key={slide.title}
-                className="min-w-[80%] snap-center border border-border/40 bg-card/50 p-5"
-              >
-                <p className="text-xs uppercase tracking-widest text-muted-foreground">
-                  {slide.title}
-                </p>
-                <p className="text-base text-muted-foreground mt-3">
-                  {slide.body}
-                </p>
-              </div>
-            ))}
+          {/* Action CTAs */}
+          <div className="flex flex-wrap items-center gap-4 mb-10">
+            <a
+              href="#work"
+              className="inline-flex items-center gap-2 bg-foreground text-background font-mono text-xs uppercase tracking-widest px-6 py-3.5 font-bold hover:bg-neutral-200 transition-colors"
+            >
+              View my work
+              <ArrowDown className="w-3.5 h-3.5" />
+            </a>
+
+            <Link
+              href="/engineering"
+              className="inline-flex items-center gap-2 border border-border text-foreground font-mono text-xs uppercase tracking-widest px-6 py-3.5 hover:bg-card hover:border-foreground transition-colors"
+            >
+              <FileText className="w-3.5 h-3.5" />
+              Read my engineering notes
+            </Link>
+          </div>
+
+          {/* Direct verification links */}
+          <div className="flex items-center gap-6 text-xs font-mono text-muted-foreground pt-4 border-t border-border/40 w-full max-w-xl">
+            <span className="uppercase tracking-widest text-[11px] text-muted-foreground/70">Connect:</span>
+            <a
+              href="https://github.com/Lawal-Tani"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-foreground transition-colors flex items-center gap-1"
+            >
+              GitHub <ArrowUpRight className="w-3 h-3 opacity-60" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/tanitoluwa-lawal"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-foreground transition-colors flex items-center gap-1"
+            >
+              LinkedIn <ArrowUpRight className="w-3 h-3 opacity-60" />
+            </a>
+            <a
+              href="mailto:tanilawal44@gmail.com"
+              className="hover:text-foreground transition-colors flex items-center gap-1"
+            >
+              Email <ArrowUpRight className="w-3 h-3 opacity-60" />
+            </a>
           </div>
         </div>
-      ) : null}
 
-      <motion.div
-        style={{ opacity: hintOpacity, y: hintY }}
-        className="absolute bottom-12 left-6 md:left-12 flex items-center gap-4"
-      >
-        <div className="h-[1px] w-12 bg-border" />
-        <span className="text-xs uppercase tracking-widest text-muted-foreground">
-          Scroll to explore
-        </span>
-      </motion.div>
+        {/* Right Column: Subtle System / Terminal Interface */}
+        <div className="lg:col-span-5 w-full">
+          <div className="border border-border/80 bg-card/70 font-mono shadow-2xl relative">
+            {/* Terminal Header */}
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border/60 bg-background/80">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-border" />
+                <span className="w-2.5 h-2.5 rounded-full bg-border" />
+                <span className="w-2.5 h-2.5 rounded-full bg-border" />
+              </div>
+              <span className="text-[11px] text-muted-foreground tracking-widest uppercase">
+                lawal-tani@runtime:~
+              </span>
+              <Terminal className="w-3.5 h-3.5 text-muted-foreground" />
+            </div>
+
+            {/* Terminal Body */}
+            <div className="p-5 text-xs sm:text-sm space-y-4">
+              <div>
+                <p className="text-muted-foreground">
+                  <span className="text-emerald-400">$</span> whoami
+                </p>
+                <p className="text-foreground font-bold mt-1">
+                  Tanitoluwa Lawal
+                </p>
+              </div>
+
+              <div className="border-t border-border/30 pt-3">
+                <p className="text-muted-foreground text-xs uppercase tracking-widest mb-1">
+                  Focus
+                </p>
+                <p className="text-foreground">software engineer</p>
+                <p className="text-muted-foreground">robotics + automation</p>
+                <p className="text-muted-foreground">full-stack + AI</p>
+              </div>
+
+              <div className="border-t border-border/30 pt-3">
+                <p className="text-muted-foreground text-xs uppercase tracking-widest mb-1">
+                  Execution Loop
+                </p>
+                <p className="text-emerald-400 font-mono text-xs">
+                  building <span className="text-muted-foreground">→</span> testing{" "}
+                  <span className="text-muted-foreground">→</span> debugging{" "}
+                  <span className="text-muted-foreground">→</span> shipping
+                </p>
+              </div>
+
+              <div className="border-t border-border/30 pt-3 bg-background/40 -mx-5 -mb-5 p-4 border-b-0 text-[11px] text-muted-foreground flex justify-between items-center">
+                <span>STATUS: ACTIVE SWE CANDIDATE</span>
+                <span className="text-emerald-400 font-bold">READY TO SHIP</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

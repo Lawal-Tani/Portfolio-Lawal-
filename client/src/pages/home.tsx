@@ -1,24 +1,26 @@
 import Nav from "@/components/nav";
 import Hero from "@/components/hero";
-import Results from "@/components/results";
-import About from "@/components/about";
+import Capabilities from "@/components/capabilities";
 import Projects from "@/components/projects";
+import EngineeringApproach from "@/components/engineering-approach";
+import EngineeringPreview from "@/components/engineering-preview";
+import Experience from "@/components/experience";
+import About from "@/components/about";
 import FeaturedRepos from "@/components/featured-repos";
 import Contact from "@/components/contact";
-import FloatingCta from "@/components/floating-cta";
-import MobileNav from "@/components/mobile-nav";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-white selection:text-black">
       <Nav />
-      <FloatingCta />
-      <MobileNav />
       <main id="top">
         <Hero />
-        <Results />
-        <About />
+        <Capabilities />
         <Projects />
+        <EngineeringApproach />
+        <EngineeringPreview />
+        <Experience />
+        <About />
         <FeaturedRepos />
         <Contact />
       </main>

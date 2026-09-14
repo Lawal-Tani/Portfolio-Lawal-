@@ -1,213 +1,254 @@
-import { motion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
-import { useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { ArrowUpRight, CheckCircle2, ChevronRight, ExternalLink, Github, Layers, Terminal } from "lucide-react";
+import { Link } from "wouter";
+import { SELECTED_PROJECTS, EXPERIMENT_PROJECTS, type CaseStudyData } from "@/data/projects";
 
-type Project = {
-  id: number;
-  title: string;
-  oneLiner: string;
-  role: string;
-  impact: string[];
-  stack: string[];
-  image: string;
-  link: string;
-};
-
-const projects: Project[] = [
-  {
-    id: 1,
-    title: "Beulis Cosmetics",
-    oneLiner: "Ecommerce platform for cosmetics and skincare with a complete shopping flow.",
-    role: "Fullstack Engineer - Built frontend and backend end-to-end",
-    impact: [
-      "Increased completed checkouts by 24% after streamlining checkout",
-      "Reduced average page load time from 2.9s to 1.3s",
-      "Raised repeat purchase rate by 18% with account and reorder flow",
-    ],
-    stack: ["React", "Tailwind CSS", "Node.js", "Express", "Cloudinary", "MongoDB", "Postgres", "Vercel"],
-    image: "/images/Beulis.png",
-    link: "/case-study/beulis-cosmetics",
-  },
-  {
-    id: 2,
-    title: "RelayDesk",
-    oneLiner: "Incident command dashboard for tracking outages, owners, and response timelines.",
-    role: "Fullstack Engineer - Built realtime incident workflows end-to-end",
-    impact: [
-      "Reduced average incident response coordination time by 31%",
-      "Cut update latency to under 500ms with realtime events",
-      "Improved post-incident reporting completion to 92%",
-    ],
-    stack: ["React", "TypeScript", "Node.js", "Express", "Postgres", "WebSockets"],
-    image: "/images/project-2.png",
-    link: "/case-study/relaydesk",
-  },
-  {
-    id: 3,
-    title: "3FT",
-    oneLiner: "Ecommerce site for a thrift fashion brand with product discovery and checkout flows.",
-    role: "Fullstack Developer - Built frontend and backend end-to-end",
-    impact: [
-      "Improved mobile checkout completion by 19% after simplifying cart flow",
-      "Reduced time-to-publish new product listings by 43%",
-      "Lowered order processing errors by 27% with validated API payloads",
-    ],
-    stack: ["Vite", "Tailwind CSS", "Node.js", "Express", "Postgres", "Neon", "Postman"],
-    image: "/images/3FT.png",
-    link: "/case-study/3ft",
-  },
-];
-
-function ProjectCard({
-  project,
-  index,
-  scrollYProgress,
-}: {
-  project: Project;
-  index: number;
-  scrollYProgress: MotionValue<number>;
-}) {
-  const offset = index * 0.08;
-  const cardY = useTransform(scrollYProgress, [0, 1], [120 - index * 20, -120 + index * 20]);
-  const cardRotate = useTransform(scrollYProgress, [0, 1], [-4 + index, 4 - index]);
-  const cardScale = useTransform(scrollYProgress, [0, 1], [0.94, 1.08]);
-  const cardOpacity = useTransform(scrollYProgress, [0, 0.35 + offset, 1], [0.05, 1, 0.75]);
-  const imgY = useTransform(scrollYProgress, [0, 1], [10, -10]);
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1.0, 1.05]);
-  const highlightX = useTransform(scrollYProgress, [0, 1], ["-20%", "60%"]);
-
+function PrimaryProjectCard({ project, index }: { project: CaseStudyData; index: number }) {
   return (
-    <motion.div
-      style={{ y: cardY, rotate: cardRotate, scale: cardScale, opacity: cardOpacity }}
-      className="will-change-transform"
-    >
-      <Card className="group bg-transparent border-none shadow-none overflow-hidden rounded-none">
-        <CardContent className="p-0 relative aspect-video overflow-hidden bg-black/40 mb-6">
-          <motion.img
-            src={project.image}
-            alt={project.title}
-            loading="lazy"
-            decoding="async"
-            sizes="(max-width: 768px) 85vw, 33vw"
-            style={{ y: imgY, scale: imgScale }}
-            className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-700 ease-out will-change-transform"
-          />
-          <motion.div
-            style={{ x: highlightX }}
-            className="absolute inset-y-0 -left-1/2 w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent mix-blend-screen"
-          />
-          <div className="absolute inset-0 bg-black/25 group-hover:bg-black/5 transition-colors" />
-        </CardContent>
-        <CardFooter className="p-0 flex flex-col items-start gap-4">
-          <div className="flex justify-between w-full items-start gap-6">
-            <div>
-              <h4 className="text-xl font-display font-bold group-hover:text-muted-foreground transition-colors">
-                {project.title}
-              </h4>
-              <p className="text-sm text-muted-foreground mt-1">
-                {project.oneLiner}
+    <article className="border border-border/80 bg-card/40 p-6 md:p-10 transition-all hover:border-foreground/60 mb-12">
+      {/* Header Info */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border/50 pb-6 mb-8">
+        <div>
+          <div className="flex items-center gap-3 mb-2">
+            <span className="font-mono text-xs text-muted-foreground">
+              0{index + 1} //
+            </span>
+            <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 border border-emerald-500/30 px-2 py-0.5 bg-emerald-950/20">
+              {project.category}
+            </span>
+          </div>
+          <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground">
+            {project.title}
+          </h3>
+          <p className="text-sm md:text-base text-muted-foreground mt-1">
+            {project.subtitle}
+          </p>
+        </div>
+
+        {/* Action Links */}
+        <div className="flex items-center gap-3 self-start md:self-auto">
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-foreground border border-border px-3.5 py-2 hover:bg-foreground hover:text-background transition-colors"
+            >
+              Live Demo <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          )}
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-muted-foreground border border-border px-3.5 py-2 hover:text-foreground hover:border-foreground transition-colors"
+            >
+              GitHub <Github className="w-3.5 h-3.5" />
+            </a>
+          )}
+          <Link
+            href={`/case-study/${project.id}`}
+            className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider bg-foreground text-background font-bold px-3.5 py-2 hover:bg-neutral-200 transition-colors"
+          >
+            Case Study <ArrowUpRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+      </div>
+
+      {/* Engineering Problem & What Was Built */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
+        <div className="lg:col-span-6 space-y-6">
+          <div>
+            <h4 className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-foreground" /> The Engineering Problem
+            </h4>
+            <p className="text-sm md:text-base text-foreground/90 leading-relaxed">
+              {project.problem}
+            </p>
+          </div>
+
+          <div>
+            <h4 className="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-2 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-foreground" /> What I Engineered
+            </h4>
+            <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+              {project.overview}
+            </p>
+          </div>
+
+          {/* Key Trade-Off Preview */}
+          {project.technicalDecisions.length > 0 && (
+            <div className="border border-border/60 bg-background/50 p-4 font-mono text-xs">
+              <span className="text-[11px] text-muted-foreground uppercase tracking-widest block mb-2 font-bold text-foreground">
+                Technical Trade-Off: {project.technicalDecisions[0].decision}
+              </span>
+              <p className="text-muted-foreground mb-1.5">
+                <strong className="text-foreground">Chose:</strong> {project.technicalDecisions[0].chose}
+              </p>
+              <p className="text-muted-foreground mb-1.5">
+                <strong className="text-foreground">Why:</strong> {project.technicalDecisions[0].why}
+              </p>
+              <p className="text-muted-foreground">
+                <strong className="text-foreground">Trade-off:</strong> {project.technicalDecisions[0].tradeOff}
               </p>
             </div>
-            <a
-              href={project.link}
-              className="p-2 border border-border rounded-full hover:bg-foreground hover:text-background transition-colors"
-              data-testid={`btn-visit-${project.id}`}
-            >
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
+          )}
+        </div>
+
+        {/* Right: Architecture Visualization */}
+        <div className="lg:col-span-6 flex flex-col justify-between">
+          <div className="border border-border/80 bg-background/90 p-4 font-mono text-xs rounded-none overflow-x-auto shadow-inner">
+            <div className="flex items-center justify-between border-b border-border/40 pb-2 mb-3 text-[11px] text-muted-foreground">
+              <span>SYSTEM ARCHITECTURE DIAGRAM</span>
+              <span className="text-emerald-400">VERIFIED</span>
+            </div>
+            <pre className="text-[11px] leading-snug text-neutral-300 font-mono overflow-x-auto no-scrollbar py-2">
+              {project.architectureDiagram.trim()}
+            </pre>
           </div>
 
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">
-            {project.role}
+          <p className="text-xs text-muted-foreground mt-3 italic">
+            {project.architectureNotes}
           </p>
+        </div>
+      </div>
 
-          <div className="w-full border-t border-border/40 pt-4">
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Impact</p>
-            <ul className="text-sm text-muted-foreground space-y-2">
-              {project.impact.map((line) => (
-                <li key={line} className="flex items-start gap-2">
-                  <span className="mt-2 h-[3px] w-[18px] bg-border" />
-                  <span>{line}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+      {/* Footer: Tech Stack & Full Case Study CTA */}
+      <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-border/50">
+        <div className="flex flex-wrap gap-2">
+          {project.stack.map((tech) => (
+            <span
+              key={tech}
+              className="text-[11px] font-mono text-muted-foreground border border-border/70 px-2.5 py-1 bg-background/50"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
 
-          <div className="flex flex-wrap gap-2">
-            {project.stack.map((tag) => (
-              <span key={tag} className="text-xs uppercase tracking-wider text-muted-foreground border border-border px-2 py-1">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </CardFooter>
-      </Card>
-    </motion.div>
+        <Link
+          href={`/case-study/${project.id}`}
+          className="text-xs font-mono text-foreground hover:underline inline-flex items-center gap-1 font-bold"
+        >
+          Read complete 10-part case study <ChevronRight className="w-3.5 h-3.5" />
+        </Link>
+      </div>
+    </article>
   );
 }
 
 export default function Projects() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  const smooth = useSpring(scrollYProgress, { stiffness: 110, damping: 26, mass: 0.6 });
-  const headerY = useTransform(smooth, [0, 1], [60, -60]);
-  const headerOpacity = useTransform(smooth, [0, 0.4, 1], [0.1, 1, 0.7]);
-  const buttonY = useTransform(smooth, [0, 1], [30, -30]);
-  const glowY = useTransform(smooth, [0, 1], [40, -40]);
-  const glowOpacity = useTransform(smooth, [0, 0.6, 1], [0.1, 0.4, 0.2]);
-
   return (
-    <section
-      ref={sectionRef}
-      id="projects"
-      className="section-visibility relative py-24 md:py-32 px-6 md:px-12 border-t border-border/40 overflow-hidden"
-    >
-      <motion.div
-        style={{ y: glowY, opacity: glowOpacity }}
-        className="absolute -top-10 left-0 right-0 h-[420px] bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.16),_transparent_65%)] -z-10 pointer-events-none"
-      />
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
-          <motion.div style={{ y: headerY, opacity: headerOpacity }} className="max-w-lg will-change-transform">
-            <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4">
-              02 - Case Studies
-            </h2>
-            <h3 className="text-3xl md:text-4xl font-display font-medium">
-              Fullstack systems built to move real metrics.
-            </h3>
-            <p className="text-sm text-muted-foreground mt-4">
-              Each project highlights the problem, constraints, decisions, and measurable outcomes.
-            </p>
-          </motion.div>
-          <motion.div style={{ y: buttonY, opacity: headerOpacity }} className="hidden md:block will-change-transform">
-            <Button variant="outline" className="hidden md:flex gap-2 rounded-none border-foreground hover:bg-foreground hover:text-background transition-colors">
-              View All Case Studies
-            </Button>
-          </motion.div>
+    <section id="work" className="py-24 px-6 md:px-12 max-w-6xl mx-auto border-t border-border/60">
+      {/* Section Header */}
+      <div className="mb-14">
+        <div className="flex items-center gap-3 mb-3">
+          <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+            // SELECTED WORK
+          </span>
+          <div className="h-[1px] flex-1 bg-border/40 max-w-xs" />
+        </div>
+        <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground">
+          Products and systems I've designed, built, debugged, and shipped.
+        </h2>
+        <p className="text-muted-foreground text-base md:text-lg mt-3 max-w-2xl">
+          Each project communicates the engineering problem, system constraints, trade-offs evaluated, and verifiable outcomes.
+        </p>
+      </div>
+
+      {/* Selected Major Projects */}
+      <div>
+        {SELECTED_PROJECTS.map((project, index) => (
+          <PrimaryProjectCard key={project.id} project={project} index={index} />
+        ))}
+      </div>
+
+      {/* More Experiments Section */}
+      <div className="mt-20 pt-16 border-t border-border/60">
+        <div className="mb-10">
+          <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground block mb-2">
+            // ENGINEERING EXPERIMENTS & SUBSYSTEMS
+          </span>
+          <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground">
+            More Experiments
+          </h3>
+          <p className="text-sm text-muted-foreground mt-2 max-w-xl">
+            Targeted explorations demonstrating breadth across distributed systems, machine learning telemetry, and responsive web systems.
+          </p>
         </div>
 
-        <div className="flex md:grid md:grid-cols-3 gap-6 md:gap-10 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-4 md:pb-0 -mx-2 px-2 md:mx-0 md:px-0">
-          {projects.map((project, index) => (
-            <div key={project.id} className="min-w-[85%] md:min-w-0 snap-center">
-              <ProjectCard
-                project={project}
-                index={index}
-                scrollYProgress={smooth}
-              />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {EXPERIMENT_PROJECTS.map((exp) => (
+            <div
+              key={exp.id}
+              className="border border-border/70 bg-card/30 p-6 flex flex-col justify-between hover:border-foreground/50 transition-colors"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-4 mb-2">
+                  <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400">
+                    {exp.category}
+                  </span>
+                  <div className="flex items-center gap-2">
+                    {exp.githubUrl && (
+                      <a
+                        href={exp.githubUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-muted-foreground hover:text-foreground"
+                        aria-label={`${exp.title} GitHub`}
+                      >
+                        <Github className="w-3.5 h-3.5" />
+                      </a>
+                    )}
+                    {exp.liveUrl && (
+                      <a
+                        href={exp.liveUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-muted-foreground hover:text-foreground"
+                        aria-label={`${exp.title} Live URL`}
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    )}
+                    {exp.caseStudyId && (
+                      <Link
+                        href={`/case-study/${exp.caseStudyId}`}
+                        className="text-muted-foreground hover:text-foreground"
+                        aria-label={`${exp.title} Case Study`}
+                      >
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      </Link>
+                    )}
+                  </div>
+                </div>
+
+                <h4 className="text-lg font-display font-bold text-foreground mb-2">
+                  {exp.title}
+                </h4>
+                <p className="text-sm text-muted-foreground mb-4">
+                  {exp.oneLiner}
+                </p>
+
+                <div className="border-l-2 border-border/80 pl-3 py-1 mb-4">
+                  <p className="text-xs text-muted-foreground">
+                    <strong className="text-foreground">Challenge:</strong> {exp.challenge}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-1.5 pt-4 border-t border-border/30">
+                {exp.stack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="text-[10px] font-mono text-muted-foreground bg-background px-2 py-0.5 border border-border/50"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
             </div>
           ))}
-        </div>
-
-        <div className="md:hidden mt-12">
-          <Button variant="outline" className="w-full gap-2 rounded-none border-foreground hover:bg-foreground hover:text-background transition-colors">
-            View All Case Studies
-          </Button>
         </div>
       </div>
     </section>
